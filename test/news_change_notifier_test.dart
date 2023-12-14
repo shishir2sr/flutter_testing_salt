@@ -10,12 +10,28 @@ void main() {
   late NewsChangeNotifier sut;
   late MockNewsService mockNewsService;
 
+  // READ: Why late?
+  //  Answer: Because we will initialize all of the objects in the setup method
+  //  Setup Method Runs before each and every test
+
   setUp(() {
     mockNewsService = MockNewsService();
     sut = NewsChangeNotifier(mockNewsService);
+
+    // READ: Why Moc Use korlo?
+    // Karon real implementation e server er sathe communicate kora lagte pare
+    // And data change hoite pare.
+    // Amra check kormu data ashar pore thikmoto kaaj kortese kina eita
+    // Then check kormu State gula thikmoto behave kortese kina eita
+    // Ki data aitase, kotokhon time nitase, egula kintu check kormu na.
+    // so real data er upor test korar dorkar ki? Jodi net na thake taile to
+    // test function gula fail korbo. Ei karone amra moc data use kormu.
+    // Moc data amra nijarar moto shajaite pari. Shob gula use case chinta korte pari
   });
 
   test(
+    // READ: Ei Test method run hoibar aage setup method call hoibo
+    // Eirokom prottekta test method run hoibar aage setup method prottekbar call hoibo
     "initial values are correct",
     () {
       expect(sut.articles, []);
